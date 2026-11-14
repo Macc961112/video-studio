@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Studio</title>
+<meta name="description" content="Más de 40 skills de video para Claude Code, instaladas con un solo comando y reunidas en /video-studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f3ee; --surface: #ffffff; --ink: #16130f; --muted: #6b645b; --line: #e3ddd3;
+  --accent: #e8572a; --accent-ink: #ffffff; --accent-soft: #fde3d8; --code-bg: #16130f; --code-ink: #f6f3ee;
+  --pv-bg: #1d1a16; --pv-ink: #f6f3ee; --pv-dim: #4a443c;
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #100e0c; --surface: #1a1714; --ink: #f3eee7; --muted: #a39a8e; --line: #2c2823;
+    --accent: #ff6a3d; --accent-ink: #160b06; --accent-soft: #3a1d12; --code-bg: #050403; --code-ink: #f3eee7;
+    --pv-bg: #0a0908; --pv-dim: #3a352f;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #100e0c; --surface: #1a1714; --ink: #f3eee7; --muted: #a39a8e; --line: #2c2823;
+  --accent: #ff6a3d; --accent-ink: #160b06; --accent-soft: #3a1d12; --code-bg: #050403; --code-ink: #f3eee7;
+  --pv-bg: #0a0908; --pv-dim: #3a352f;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Inter, system-ui, sans-serif; }
+a { color: inherit; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { font-family: "Bricolage Grotesque", Inter, sans-serif; letter-spacing: -0.02em; margin: 0; }
+code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+/* Hero */
+header { padding: 72px 0 40px; }
+.kicker { display: inline-block; font: 500 13px "JetBrains Mono", monospace; color: var(--accent); background: var(--accent-soft); padding: 4px 10px; border-radius: 99px; }
+h1 { font-size: clamp(44px, 8vw, 92px); font-weight: 800; line-height: .95; margin: 18px 0 18px; }
+h1 span { color: var(--accent); }
+.lede { font-size: clamp(17px, 2.2vw, 21px); color: var(--muted); max-width: 640px; margin: 0 0 32px; }
+.stats { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 36px; }
+.stats b { display: block; font: 800 34px "Bricolage Grotesque", sans-serif; }
+.stats span { color: var(--muted); font-size: 14px; }
+
+/* Install box */
+.install { background: var(--code-bg); color: var(--code-ink); border-radius: var(--r); padding: 6px; max-width: 820px; }
+.tabs { display: flex; gap: 4px; padding: 4px; }
+.tab { background: none; border: 0; color: #a39a8e; font: 600 14px Inter, sans-serif; padding: 8px 14px; border-radius: 9px; cursor: pointer; }
+.tab[aria-selected="true"] { background: #2c2823; color: #fff; }
+.cmd { display: flex; align-items: center; gap: 12px; padding: 14px 14px 16px; }
+.cmd code { flex: 1; font-size: 14px; overflow-x: auto; white-space: nowrap; scrollbar-width: thin; }
+.cmd code::before { content: "> "; color: var(--accent); }
+.copy { flex: none; background: var(--accent); color: var(--accent-ink); border: 0; font: 600 13px Inter, sans-serif; padding: 9px 14px; border-radius: 9px; cursor: pointer; }
+.copy:focus-visible, .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.after { color: var(--muted); font-size: 14px; margin: 14px 0 0; }
+
+/* Sections */
+section { padding: 44px 0 8px; }
+section > h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; }
+section > p { color: var(--muted); margin: 6px 0 24px; max-width: 640px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+@media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; display: flex; flex-direction: column; }
+.card .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card .name { font: 500 12.5px "JetBrains Mono", monospace; color: var(--accent); }
+.card h3 { font-size: 21px; font-weight: 800; }
+.card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+.ask { margin-top: auto; padding-top: 10px; display: flex; gap: 8px; align-items: stretch; }
+.ask code { flex: 1; font-size: 12.5px; background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; line-height: 1.4; }
+.ask .copy { padding: 8px 11px; font-size: 12px; }
+.real { position: absolute; top: 10px; left: 10px; font: 600 11px Inter, sans-serif; background: rgba(0,0,0,.6); color: #fff; padding: 3px 8px; border-radius: 99px; z-index: 2; }
+.wide { grid-column: 1 / -1; }
+
+/* Preview stage */
+.pv { position: relative; aspect-ratio: 16 / 9; background: var(--pv-bg); color: var(--pv-ink); overflow: hidden; display: grid; place-items: center; }
+.pv img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pv.contain img { object-fit: contain; }
+
+/* chart */
+.bars { display: flex; align-items: flex-end; gap: 10px; height: 60%; }
+.bars i { width: 26px; background: var(--accent); border-radius: 4px 4px 0 0; animation: grow 3.2s ease-in-out infinite; transform-origin: bottom; }
+.bars i:nth-child(1) { height: 35%; } .bars i:nth-child(2) { height: 55%; animation-delay: .15s; }
+.bars i:nth-child(3) { height: 48%; animation-delay: .3s; } .bars i:nth-child(4) { height: 75%; animation-delay: .45s; }
+.bars i:nth-child(5) { height: 100%; animation-delay: .6s; background: #ffd11a; }
+@keyframes grow { 0%, 10% { transform: scaleY(0); } 40%, 85% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
+
+/* apple notch */
+.mac { position: absolute; inset: 0; background: linear-gradient(135deg, #3b2fd9, #c13ad1 55%, #ff8a4c); animation: hue 8s linear infinite; }
+.mac::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 14px; background: rgba(255,255,255,.18); }
+.notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: #000; border-radius: 0 0 14px 14px; width: 70px; height: 18px; animation: notch 4s cubic-bezier(.6,0,.2,1) infinite; display: grid; place-items: center; color: #fff; font: 600 13px Inter, sans-serif; }
+.notch span { opacity: 0; animation: fadein 4s infinite; }
+@keyframes notch { 0%, 15% { width: 70px; height: 18px; border-radius: 0 0 14px 14px; } 40%, 80% { width: 62%; height: 46%; border-radius: 0 0 26px 26px; } 100% { width: 70px; height: 18px; } }
+@keyframes fadein { 0%, 40% { opacity: 0; } 50%, 75% { opacity: 1; } 85%, 100% { opacity: 0; } }
+@keyframes hue { to { filter: hue-rotate(360deg); } }
+
+/* vox */
+.vox { position: absolute; inset: 0; background: #efe6d2; display: grid; place-items: center; }
+.vox::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(#0002 1px, transparent 1.2px); background-size: 5px 5px; }
+.vox b { position: relative; font: 800 clamp(30px, 6vw, 48px)/1 "Bricolage Grotesque", sans-serif; color: #111; letter-spacing: -.03em; text-transform: uppercase; animation: twos 1s steps(2) infinite; }
+.vox b::after { content: ""; position: absolute; left: -4px; right: -4px; bottom: 4px; height: 38%; background: #ffd11a; z-index: -1; transform-origin: left; animation: mark 3s ease-out infinite; }
+.vox em { position: absolute; top: 14%; left: 8%; width: 30%; height: 22%; background: #d9cdb2; clip-path: polygon(0 8%, 100% 0, 96% 92%, 3% 100%); transform: rotate(-4deg); }
+@keyframes twos { 50% { transform: rotate(-1deg) translateY(-1px); } }
+@keyframes mark { 0%, 15% { transform: scaleX(0); } 45%, 100% { transform: scaleX(1); } }
+
+/* 3D title */
+.t3d { position: absolute; inset: 0; background: linear-gradient(#07071a 45%, #1a0b2e); perspective: 220px; }
+.floor { position: absolute; left: -50%; right: -50%; bottom: -10%; height: 70%; transform: rotateX(70deg); background-image: linear-gradient(#ff3dbb88 1px, transparent 1px), linear-gradient(90deg, #ff3dbb88 1px, transparent 1px); background-size: 34px 34px; animation: floor 1.4s linear infinite; }
+@keyframes floor { to { background-position: 0 34px; } }
+.neon { position: absolute; top: 26%; width: 100%; text-align: center; font: 800 clamp(26px, 5vw, 40px) "Bricolage Grotesque", sans-serif; color: #fff; text-shadow: 0 0 8px #35e7ff, 0 0 22px #35e7ff; animation: flick 3s infinite; }
+@keyframes flick { 0%, 18%, 22%, 60%, 64%, 100% { opacity: 1; } 20%, 62% { opacity: .35; } }
+
+/* newsletter */
+.nl { display: flex; gap: 10px; }
+.nl i { width: 64px; height: 84px; background: #fff; border-radius: 6px; box-shadow: 0 4px 0 var(--accent); animation: slide 4s ease-out infinite; opacity: 0; }
+.nl i::before { content: ""; display: block; margin: 10px; height: 26px; background: var(--accent-soft); border-radius: 3px; }
+.nl i:nth-child(2) { animation-delay: .3s; } .nl i:nth-child(3) { animation-delay: .6s; }
+@keyframes slide { 0% { opacity: 0; transform: translateY(30px); } 20%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+
+/* loop cover */
+.cover { position: absolute; inset: 12% 18%; background: linear-gradient(135deg, #00132f, #1b3a73); border-radius: 8px; display: grid; place-items: center; }
+.cover i { width: 46px; height: 46px; border: 4px solid #ffd11a; border-top-color: transparent; border-radius: 50%; animation: spin 2s linear infinite; }
+.cover b { position: absolute; bottom: 12%; left: 10%; font: 800 14px "Bricolage Grotesque", sans-serif; color: #fff; }
+.tagloop { position: absolute; bottom: 8px; right: 10px; font: 500 11px "JetBrains Mono", monospace; color: #fff8; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* motion effects: button to player */
+.morph { background: var(--accent); color: var(--accent-ink); font: 600 14px Inter, sans-serif; display: grid; place-items: center; animation: morph 4s cubic-bezier(.7,0,.2,1) infinite; overflow: hidden; }
+.morph::after { content: "▶"; font-size: 22px; opacity: 0; animation: fadein 4s infinite; position: absolute; }
+@keyframes morph { 0%, 20% { width: 120px; height: 40px; border-radius: 99px; color: var(--accent-ink); } 45%, 85% { width: 70%; height: 66%; border-radius: 10px; color: transparent; background: #000; } 100% { width: 120px; height: 40px; border-radius: 99px; } }
+
+/* showdown */
+.three { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: #000; }
+.three div { background: var(--pv-bg); display: grid; place-items: center; position: relative; }
+.three div::before { content: ""; width: 40%; aspect-ratio: 1; border-radius: 30%; background: var(--c); animation: pulse 2.4s ease-in-out infinite; animation-delay: var(--d); }
+.three span { position: absolute; bottom: 8px; font: 600 11px Inter, sans-serif; color: #fff9; }
+@keyframes pulse { 50% { transform: scale(.6) rotate(45deg); border-radius: 50%; } }
+
+/* brand */
+.sw { display: flex; gap: 8px; align-items: center; }
+.sw i { width: 40px; height: 40px; border-radius: 10px; animation: pop 3s infinite; }
+.sw b { font: 800 40px "Bricolage Grotesque", sans-serif; margin-left: 10px; animation: pop 3s infinite .5s; }
+@keyframes pop { 0%, 10% { transform: scale(0); } 25%, 85% { transform: scale(1); } 100% { transform: scale(0); } }
+
+/* doc typing */
+.doc { width: 58%; background: #fff; border-radius: 8px; padding: 14px; display: grid; gap: 7px; }
+.doc i { height: 7px; border-radius: 4px; background: #d9d2c7; transform-origin: left; animation: type 3.5s steps(12) infinite; }
+.doc i:first-child { background: var(--accent); width: 50%; }
+.doc i:nth-child(2) { animation-delay: .4s; } .doc i:nth-child(3) { animation-delay: .8s; width: 80%; } .doc i:nth-child(4) { animation-delay: 1.2s; width: 65%; }
+@keyframes type { 0% { transform: scaleX(0); } 50%, 100% { transform: scaleX(1); } }
+
+/* 8-part prompt */
+.eight { display: grid; grid-template-columns: repeat(4, 44px); gap: 8px; }
+.eight i { height: 44px; border-radius: 8px; border: 2px solid var(--pv-dim); display: grid; place-items: center; font: 500 13px "JetBrains Mono", monospace; font-style: normal; animation: lit 4s infinite; }
+@keyframes lit { 0%, 5% { background: transparent; border-color: var(--pv-dim); } 12%, 90% { background: var(--accent); border-color: var(--accent); color: #fff; } }
+
+/* reference */
+.ref { display: flex; align-items: center; gap: 14px; }
+.strip { display: grid; grid-template-columns: repeat(3, 34px); gap: 4px; padding: 6px; background: #000; border-block: 4px dashed #555; }
+.strip i { height: 26px; background: linear-gradient(135deg, #35e7ff, #c13ad1); animation: hue 4s linear infinite; }
+.arrow { font-size: 26px; color: var(--accent); animation: nudge 1.2s ease-in-out infinite; }
+@keyframes nudge { 50% { transform: translateX(6px); } }
+
+/* reel export */
+.frame { border: 3px solid var(--pv-ink); border-radius: 8px; animation: vert 4s cubic-bezier(.7,0,.2,1) infinite; display: grid; place-items: center; font: 600 12px "JetBrains Mono", monospace; }
+.frame::after { content: "16:9"; animation: label 4s steps(1) infinite; }
+@keyframes vert { 0%, 25% { width: 160px; height: 90px; } 50%, 85% { width: 56px; height: 100px; border-color: var(--accent); } 100% { width: 160px; height: 90px; } }
+@keyframes label { 0%, 40% { content: "16:9"; } 41%, 90% { content: "9:16"; } }
+
+/* remotion */
+.rm { width: 72%; display: grid; gap: 10px; }
+.rm pre { margin: 0; font: 500 12px/1.5 "JetBrains Mono", monospace; color: #8ec5ff; }
+.rm pre b { color: #ff9b73; font-weight: 500; }
+.tl { height: 22px; background: #2c2823; border-radius: 4px; position: relative; overflow: hidden; }
+.tl::before { content: ""; position: absolute; inset: 4px 50% 4px 4px; background: #0b84f3; border-radius: 3px; }
+.tl::after { content: ""; position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; animation: play 3s linear infinite; }
+@keyframes play { from { left: 0; } to { left: 100%; } }
+
+/* ai video */
+.ai { position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, #ff6a3d, transparent 45%), radial-gradient(circle at 70% 60%, #6b5bff, transparent 45%), radial-gradient(circle at 40% 80%, #19d3a2, transparent 40%), #0a0908; filter: blur(14px); animation: drift 6s ease-in-out infinite alternate; }
+.ai + b { position: relative; font: 800 32px "Bricolage Grotesque", sans-serif; }
+@keyframes drift { to { transform: scale(1.25) rotate(20deg); } }
+
+/* pipelines */
+.pipe { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 18px; }
+.pipe button { background: transparent; color: var(--pv-ink); border: 1.5px solid var(--pv-dim); border-radius: 99px; padding: 6px 12px; font: 500 12.5px "JetBrains Mono", monospace; cursor: pointer; animation: lit2 7s infinite; }
+.pipe button:hover, .pipe button:focus-visible { border-color: var(--accent); outline: none; }
+@keyframes lit2 { 0%, 4% { border-color: var(--pv-dim); } 8%, 14% { border-color: var(--accent); background: var(--accent); color: #fff; } 18%, 100% { border-color: var(--pv-dim); background: transparent; } }
+
+/* router hero preview */
+.router { display: grid; grid-template-columns: repeat(5, auto); gap: 8px 18px; align-items: center; }
+.router .hub { grid-row: 1 / 4; grid-column: 3; background: var(--accent); color: #fff; font: 600 13px "JetBrains Mono", monospace; padding: 12px 14px; border-radius: 12px; }
+.router i { font: 500 11px "JetBrains Mono", monospace; font-style: normal; color: #a39a8e; padding: 4px 8px; border: 1px solid var(--pv-dim); border-radius: 6px; animation: lit 5s infinite; }
+
+.credits { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.credits a { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; text-decoration: none; }
+.credits a:hover { border-color: var(--accent); }
+.credits b { display: block; font-size: 15px; } .credits span { color: var(--muted); font-size: 13.5px; }
+footer { padding: 48px 0 60px; color: var(--muted); font-size: 14px; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translate(-50%, 80px); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 14px; transition: transform .25s; z-index: 9; }
+.toast.show { transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <span class="kicker">/video-studio · para Claude Code</span>
+  <h1>Todo tu estudio<br>de <span>video</span>, en una skill.</h1>
+  <p class="lede">Más de 40 skills para editar, recortar, subtitular y crear videos con código. Se instalan con un solo comando y se usan desde una sola puerta: <code>/video-studio</code> elige la herramienta adecuada por ti.</p>
+  <div class="stats">
+    <div><b>41</b><span>skills + 1 plugin</span></div>
+    <div><b>7</b><span>autores open source</span></div>
+    <div><b>1</b><span>comando para instalarlo todo</span></div>
+  </div>
+  <div class="install" id="instalar">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-os="win">Windows</button>
+      <button class="tab" role="tab" aria-selected="false" data-os="unix">Mac / Linux</button>
+    </div>
+    <div class="cmd"><code id="cmd"></code><button class="copy" data-copy-from="cmd">Copiar</button></div>
+  </div>
+  <p class="after">Pega el comando en PowerShell (Windows) o en la Terminal (Mac/Linux). Solo necesitas <a href="https://git-scm.com/downloads">Git</a>. Después reinicia Claude Code y escribe <code>/video-studio</code>.</p>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<section class="wrap">
+  <h2>Créditos</h2>
+  <p>Video Studio no copia el trabajo de nadie: el instalador descarga cada skill de su repositorio original. Todo el mérito es de sus autores.</p>
+  <div class="credits" id="credits"></div>
+</section>
+<footer class="wrap">Video Studio · Licencia MIT para el instalador y la skill /video-studio. Cada skill conserva la licencia de su autor.</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const REPO = 'TU_USUARIO/video-studio';
+const RAW = (repo, path) => `https://raw.githubusercontent.com/${repo}/main/${path}`;
+const CMDS = {
+  win: `irm ${RAW(REPO, 'install.ps1')} | iex`,
+  unix: `curl -fsSL ${RAW(REPO, 'install.sh')} | bash`,
+};
+
+const MOTION = 'charlie947/motion-graphics-skills', PAPER = '0xS4N4TG/papercut-explainer';
+const img = (src, alt, contain) => `<span class="real">Ejemplo real</span><div class="pv${contain ? ' contain' : ''}"><img src="${src}" alt="${alt}" loading="lazy"></div>`;
+const PV = {
+  chart: '<div class="bars"><i></i><i></i><i></i><i></i><i></i></div>',
+  notch: '<div class="mac"></div><div class="notch"><span>☀ 24° · ▶ 2:14</span></div>',
+  vox: '<div class="vox"><em></em><b>¿Por qué?</b></div>',
+  t3d: '<div class="t3d"><div class="floor"></div><div class="neon">TU TÍTULO</div></div>',
+  nl: '<div class="nl"><i></i><i></i><i></i></div>',
+  loop: '<div class="cover"><i></i><b>Edición #42</b></div><span class="tagloop">loop ∞</span>',
+  morph: '<div class="morph">Ver demo</div>',
+  three: '<div class="three"><div style="--c:#ff6a3d;--d:0s"><span>Modelo A</span></div><div style="--c:#6b5bff;--d:.3s"><span>Modelo B</span></div><div style="--c:#19d3a2;--d:.6s"><span>Modelo C</span></div></div>',
+  brand: '<div class="sw"><i style="background:#e8572a"></i><i style="background:#ffd11a;animation-delay:.15s"></i><i style="background:#00132f;outline:1px solid #555;animation-delay:.3s"></i><b>Aa</b></div>',
+  doc: '<div class="doc"><i></i><i></i><i></i><i></i></div>',
+  eight: '<div class="eight">' + [1,2,3,4,5,6,7,8].map(n => `<i style="animation-delay:${n * .25}s">${n}</i>`).join('') + '</div>',
+  ref: '<div class="ref"><div class="strip"><i></i><i></i><i></i></div><span class="arrow">→</span><div class="doc" style="width:110px"><i></i><i></i><i></i></div></div>',
+  frame: '<div class="frame"></div>',
+  remotion: '<div class="rm"><pre><b>&lt;Sequence</b> from={30}<b>&gt;</b>\n  &lt;Title text="Hola" /&gt;\n<b>&lt;/Sequence&gt;</b></pre><div class="tl"></div></div>',
+  ai: '<div class="ai"></div><b>IA</b>',
+};
+const css = k => `<div class="pv">${PV[k]}</div>`;
+
+const SECTIONS = [
+  { t: 'La puerta de entrada', d: 'Una skill que conoce a todas las demás. Dile qué quieres y ella elige.', cards: [
+    { n: 'video-studio', h: 'Tu director de producción', p: 'Escucha lo que pides, elige la skill adecuada y la encadena con otras si hace falta (marca → video → versión vertical).', ask: '/video-studio quiero un reel de mi producto', wide: true,
+      pv: '<div class="pv" style="aspect-ratio:21/6"><div class="router">' + ['ffmpeg', 'ghost-editor', 'shorts'].map((x, i) => `<i style="grid-column:${1 + (i % 2)};animation-delay:${i * .4}s">${x}</i>`).join('') + '<span class="hub">/video-studio</span>' + ['launch', 'vox', 'remotion'].map((x, i) => `<i style="grid-column:${4 + (i % 2)};animation-delay:${1.2 + i * .4}s">${x}</i>`).join('') + '</div></div>' },
+  ]},
+  { t: 'Editar un video que ya tienes', d: 'Tienes una grabación. Estas skills la convierten en algo publicable.', cards: [
+    { n: 'ffmpeg-skill', h: 'Edición con FFmpeg', p: 'Cortar, unir, subtítulos, logos, música con ducking, volumen, formatos para cada red. Todo en local.', ask: 'Pon subtítulos animados a entrevista.mp4 y expórtalo a 9:16', pv: img(RAW('kajisho5/ffmpeg-skill', 'assets/demo.gif'), 'Demo de ffmpeg-skill') },
+    { n: 'ghost-editor', h: 'Reels de "habla a cámara"', p: 'De una grabación con el móvil llena de pausas a un reel vertical: mejores tomas, subtítulos que no tapan la cara, efectos y B-roll.', ask: 'Edita este video en estilo Clean OS', pv: img(RAW('kurbaitaev/ghost-editor', 'docs/media/raw-to-ready.gif'), 'De grabación cruda a reel', true) },
+    { n: 'claude-shorts', h: 'Shorts desde un video largo', p: 'Transcribe, puntúa los mejores momentos, tú eliges y los exporta con subtítulos animados para Shorts, TikTok y Reels.', ask: '/shorts saca 5 clips virales de podcast.mp4', pv: img(RAW('agricidaniel/claude-shorts', 'claude-shorts-header.jpeg'), 'Cabecera de claude-shorts') },
+    { n: 'reel-export', h: 'Horizontal → vertical', p: 'Pasa cualquier video 16:9 o cuadrado a 1080×1920 con el texto dentro de la zona segura y los ajustes que Instagram acepta.', ask: 'Haz la versión para Reels de lanzamiento.mp4', pv: css('frame') },
+  ]},
+  { t: 'Crear videos con código', d: 'Sin After Effects ni generadores. Cada fotograma es código, así que cada número y color es exacto.', cards: [
+    { n: 'launch-video', h: 'Video de lanzamiento', p: '30-45 s para el día de lanzamiento: una frase por escenas, pantallas reales del producto y llamada a la acción.', ask: 'Haz un launch video de mi app de reservas', pv: img(RAW(MOTION, 'assets/readme/demo-launch.gif'), 'Demo de launch-video') },
+    { n: 'milestone-reveal', h: 'Celebrar un hito', p: 'Miles de puntos que se juntan en tu número real (seguidores, clientes, ingresos) en un clip de 12 s en bucle.', ask: 'Celebra mis 10.000 seguidores', pv: img(RAW(MOTION, 'assets/readme/demo-milestone.gif'), 'Demo de milestone-reveal') },
+    { n: 'apple-launch-film', h: 'Estilo keynote de Apple', p: 'La barra de menú de Mac, el notch que crece en widgets y fondos degradados a pantalla completa.', ask: 'Lanzamiento estilo Apple para mi app de Mac', pv: css('notch') },
+    { n: 'vox-explainer', h: 'Documental estilo Vox', p: 'Explicadores de 30-60 s con papel rasgado, trama de puntos, tipografía condensada y animación "a doses".', ask: 'Explica por qué sube el precio del café', pv: css('vox') },
+    { n: 'papercut-explainer', h: 'Explicador de papel recortado', p: 'Desde un enlace (repo, producto, noticia) hasta un reel vertical de papel recortado con voz, de principio a fin.', ask: 'Haz un papercut reel sobre este repo: github.com/…', pv: img(RAW(PAPER, 'docs/img/hello-reel.gif'), 'Demo de papercut-explainer', true) },
+    { n: 'title-sequence-3d', h: 'Intro cinematográfica 3D', p: 'Una cámara que recorre una escena con Three.js (calle de noche, letreros de neón) y aterriza en tu título.', ask: 'Intro 3D para mi canal de YouTube', pv: css('t3d') },
+    { n: 'newsletter-promo', h: 'Promo de newsletter', p: 'Clip de 12-20 s: pregunta gancho, tres pruebas sacadas de la edición y dónde suscribirse.', ask: 'Promo de mi última edición de Substack', pv: css('nl') },
+    { n: 'animated-chart', h: 'Gráfico animado', p: 'Barras que crecen, números que cuentan, un antes y después. Los valores se quedan exactamente como los das.', ask: 'Anima estas ventas: ene 12, feb 18, mar 31', pv: css('chart') },
+    { n: 'loop-cover', h: 'Portada en bucle', p: 'Tu portada de newsletter o blog como GIF en bucle perfecto, moviendo solo el elemento que elijas.', ask: 'Haz que el sol de mi portada gire en bucle', pv: css('loop') },
+    { n: 'motion-effects', h: '16 efectos premium', p: 'Botón que se convierte en reproductor, gráfico que muta, logo de partículas, tipografía elástica… exportables a MP4.', ask: 'Construye el efecto botón → reproductor', pv: css('morph') },
+    { n: 'model-showdown', h: 'Comparativa de 3 IAs', p: 'El mismo brief a tres modelos y sus resultados lado a lado en un video horizontal y otro vertical.', ask: 'Compara 3 modelos animando mi logo', pv: css('three') },
+    { n: 'lemo-opuscar', h: 'Cine en estilos artísticos', p: 'Cortos en óleo, acuarela, ukiyo-e, briefing por satélite, despiece de producto… o un estilo tuyo. (Es un plugin.)', ask: 'Un corto en acuarela sobre mi ciudad', pv: img(RAW('lemomo-ai/lemo-opuscar', 'docs/cover.jpg'), 'Portada de lemo-opuscar') },
+    { n: 'OpenArt (conector)', h: 'Video generado con IA', p: 'De texto o imagen a video con modelos de IA. No es una skill: se conecta desde los conectores de Claude.', ask: 'Genera un clip de 5 s de una ola al atardecer', pv: css('ai') },
+  ]},
+  { t: 'Planificar antes de crear', d: 'Para que el resultado salga en tu marca y a la primera.', cards: [
+    { n: 'brand-intake', h: 'Configura tu marca', p: 'Una entrevista corta y 3-5 imágenes de referencia se convierten en tus reglas de colores, tipografía y movimiento.', ask: 'Configura mi marca para los videos', pv: css('brand') },
+    { n: 'motion-brief-writer', h: 'Idea → brief', p: 'Convierte una idea vaga en un brief preciso. Pregunta los números reales y nunca se inventa una cifra.', ask: 'Quiero animar mis resultados del trimestre', pv: css('doc') },
+    { n: 'motion-prompt-writer', h: 'Prompt de 8 partes', p: 'Escribe un prompt completo de Claude Motion, listo para pegar, a partir de tu marca y un momento a mostrar.', ask: 'Escríbeme un Motion prompt para mi logo', pv: css('eight') },
+    { n: 'reference-to-motion', h: '"Hazme algo como esto"', p: 'De capturas de un video que te gusta a un prompt escena por escena, con tu tema y tu estilo.', ask: 'Haz algo como este reel (adjunto capturas)', pv: css('ref') },
+  ]},
+];
+
+const PIPES = [
+  { t: 'Papercut, paso a paso', d: 'Si solo quieres una fase del explicador de papel. Toca una para copiar cómo pedirla.', items: ['papercut-strategy', 'papercut-hook', 'papercut-script', 'papercut-storyboard', 'papercut-voice', 'papercut-build', 'papercut-qa', 'papercut-setup'] },
+  { t: 'Remotion, video en React', d: 'El motor que usan muchas de estas skills. Toca una para copiar su comando.', items: ['remotion-best-practices', 'remotion-create', 'remotion-studio', 'remotion-render', 'remotion-captions', 'remotion-markup', 'remotion-maps', 'remotion-multimedia', 'remotion-interactivity', 'remotion-saas', 'remotion-docs', 'remotion-upgrade', 'remotion-license'], pv: 'remotion' },
+];
+
+const CREDITS = [
+  ['charlie947/motion-graphics-skills', 'Charlie Hills · 15 skills de motion', 'MIT'],
+  ['remotion-dev/skills', 'Remotion · 13 skills', 'Licencia de Remotion'],
+  ['0xS4N4TG/papercut-explainer', 'sanat · 9 skills papercut', 'MIT'],
+  ['kajisho5/ffmpeg-skill', 'kajisho5 · ffmpeg-skill', 'MIT'],
+  ['kurbaitaev/ghost-editor', 'kurbaitaev · ghost-editor', 'MIT'],
+  ['agricidaniel/claude-shorts', 'Daniel Agrici · claude-shorts', 'MIT'],
+  ['lemomo-ai/lemo-opuscar', 'Lemomo · plugin lemo-opuscar', 'MIT'],
+];
+
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const card = c => `<article class="card${c.wide ? ' wide' : ''}"><div style="position:relative">${c.pv}</div><div class="body">
+  <span class="name">${c.n}</span><h3>${c.h}</h3><p>${c.p}</p>
+  <div class="ask"><code>${esc(c.ask)}</code><button class="copy" data-copy="${esc(c.ask)}" aria-label="Copiar ejemplo de ${c.n}">Copiar</button></div></div></article>`;
+
+document.getElementById('app').innerHTML =
+  SECTIONS.map(s => `<section><h2>${s.t}</h2><p>${s.d}</p><div class="grid">${s.cards.map(card).join('')}</div></section>`).join('') +
+  PIPES.map(s => `<section><h2>${s.t}</h2><p>${s.d}</p><div class="card"><div class="pv" style="aspect-ratio:auto">${s.pv ? `<div style="width:100%;display:grid;place-items:center;padding-top:20px">${PV[s.pv]}</div>` : ''}<div class="pipe">${s.items.map((x, i) => `<button data-copy="/${x}" style="animation-delay:${i * .8}s">${x}</button>`).join('')}</div></div></div></section>`).join('');
+
+document.getElementById('credits').innerHTML = CREDITS.map(([r, who, lic]) => `<a href="https://github.com/${r}" target="_blank" rel="noopener"><b>${r}</b><span>${who} · ${lic}</span></a>`).join('');
+
+const cmd = document.getElementById('cmd');
+const setOS = os => {
+  cmd.textContent = CMDS[os];
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.os === os));
+};
+setOS(/Win/i.test(navigator.platform || navigator.userAgent) || !/Mac|Linux|X11/i.test(navigator.userAgent) ? 'win' : 'unix');
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => setOS(t.dataset.os)));
+
+const toast = document.getElementById('toast');
+let tid;
+document.addEventListener('click', async e => {
+  const b = e.target.closest('[data-copy],[data-copy-from]');
+  if (!b) return;
+  const text = b.dataset.copy ?? document.getElementById(b.dataset.copyFrom).textContent;
+  try { await navigator.clipboard.writeText(text); toast.textContent = 'Copiado: ' + text.slice(0, 48) + (text.length > 48 ? '…' : ''); }
+  catch { toast.textContent = 'No se pudo copiar. Selecciona el texto a mano.'; }
+  toast.classList.add('show'); clearTimeout(tid); tid = setTimeout(() => toast.classList.remove('show'), 1800);
+});
+</script>
+</body>
+</html>
