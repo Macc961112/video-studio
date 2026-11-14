@@ -2,7 +2,7 @@
 
 **Todo tu estudio de video para Claude Code, en una skill.** 41 skills + 1 plugin para editar, recortar, subtitular y crear videos con código, instaladas con un solo comando y usadas desde una sola puerta: `/video-studio`.
 
-🌐 **Web con ejemplos visuales:** https://TU_USUARIO.github.io/video-studio/
+🌐 **Web con ejemplos visuales:** https://macc961112.github.io/video-studio/
 
 ## Instalar
 
@@ -11,13 +11,13 @@ Solo necesitas [Git](https://git-scm.com/downloads).
 **Windows** (PowerShell):
 
 ```powershell
-irm https://raw.githubusercontent.com/TU_USUARIO/video-studio/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/Macc961112/video-studio/main/install.ps1 | iex
 ```
 
 **Mac / Linux** (Terminal):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TU_USUARIO/video-studio/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Macc961112/video-studio/main/install.sh | bash
 ```
 
 Después reinicia Claude Code y escribe `/video-studio`.

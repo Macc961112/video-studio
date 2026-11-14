@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Video Studio: instala todas las skills de video para Claude Code (macOS / Linux).
-# Uso:  curl -fsSL https://raw.githubusercontent.com/TU_USUARIO/video-studio/main/install.sh | bash
+# Uso:  curl -fsSL https://raw.githubusercontent.com/Macc961112/video-studio/main/install.sh | bash
 set -euo pipefail
 
-REPO="TU_USUARIO/video-studio"
+REPO="Macc961112/video-studio"
 DEST="$HOME/.claude/skills"
 BACKUP="$HOME/.claude/skills-backup/$(date +%Y%m%d-%H%M%S)"
 TMP="$(mktemp -d)"

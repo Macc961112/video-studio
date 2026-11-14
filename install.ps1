@@ -1,8 +1,8 @@
 # Video Studio: instala todas las skills de video para Claude Code (Windows).
-# Uso:  irm https://raw.githubusercontent.com/TU_USUARIO/video-studio/main/install.ps1 | iex
+# Uso:  irm https://raw.githubusercontent.com/Macc961112/video-studio/main/install.ps1 | iex
 $ErrorActionPreference = 'Stop'
 
-$Repo   = 'TU_USUARIO/video-studio'
+$Repo   = 'Macc961112/video-studio'
 $Dest   = Join-Path $HOME '.claude\skills'
 $Backup = Join-Path $HOME ('.claude\skills-backup\' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
 $Tmp    = Join-Path ([IO.Path]::GetTempPath()) ('vs-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
