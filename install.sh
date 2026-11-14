@@ -47,7 +47,38 @@ for pair in "${SINGLES[@]}"; do
   set_skill "$TMP/$name" "$name"; count=$((count + 1))
 done
 
-printf '\nListo: %s skills instaladas.\n' "$count"
-[ -d "$BACKUP" ] && echo "Las versiones anteriores se guardaron en $BACKUP"
+printf '\n%s skills instaladas.\n' "$count"
+
+# ---------- Librerias y dependencias basicas (las voces se instalan al usarlas) ----------
+printf '\nInstalando librerias y dependencias. Puede tardar 10-20 minutos...\n\n'
+FAILS=()
+export PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT=600000  # el navegador de render pesa ~100 MB
+# Un paso que falla se apunta y se sigue con el siguiente.
+step() { local n="$1"; shift; echo "> $n"; "$@" || { echo "  ! fallo: $n"; FAILS+=("$n"); }; }
+have() { command -v "$1" >/dev/null; }
+MISSING=""
+for t in python3 node npm ffmpeg; do have "$t" || MISSING="$MISSING $t"; done
+[ -n "$MISSING" ] && echo "Faltan programas:$MISSING. Los pasos que los necesitan se saltaran."
+
+PAPER="$HOME/papercut-explainer"
+step "lemo-opuscar: libreria de estilos" sh "$DEST/lemo-opuscar/scripts/setup.sh"
+if [ -d "$PAPER/.git" ]; then step "papercut: actualizar libreria" git -C "$PAPER" pull -q --ff-only
+else step "papercut: libreria" git clone -q --depth 1 https://github.com/0xS4N4TG/papercut-explainer.git "$PAPER"; fi
+if have node && have npm && have python3; then
+  step "lemo-opuscar: dependencias" sh "$DEST/lemo-opuscar/scripts/setup.sh" deps
+  step "papercut: instalacion estandar" bash -c 'cd "$1" && ./install.sh --mode standard --yes --target claude' _ "$PAPER"
+  step "claude-shorts: Python y Remotion" bash "$DEST/claude-shorts/setup.sh"
+fi
+if have python3; then
+  step "ghost-editor: paquetes Python" python3 -m pip install --user --quiet --no-warn-script-location openai-whisper numpy opencv-python pillow
+  step "ghost-editor: sonidos y musica" python3 "$DEST/ghost-editor/scripts/library_restore.py"
+fi
+
+printf '\nListo.\n'
+[ -d "$BACKUP" ] && echo "Las versiones anteriores de las skills se guardaron en $BACKUP"
+if [ ${#FAILS[@]} -gt 0 ] || [ -n "$MISSING" ]; then
+  echo "Pendiente:"
+  [ -n "$MISSING" ] && echo "  - instala:$MISSING y vuelve a ejecutar este comando"
+  for f in ${FAILS[@]+"${FAILS[@]}"}; do echo "  - $f (la skill lo reintentara la primera vez que la uses)"; done
+fi
 printf '\nReinicia Claude Code y escribe /video-studio para empezar.\n'
-echo 'Algunas skills necesitan programas extra (FFmpeg, Python, Node). Cada una te lo pedira la primera vez.'

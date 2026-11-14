@@ -6,7 +6,7 @@
 
 ## Instalar
 
-Solo necesitas [Git](https://git-scm.com/downloads).
+Necesitas [Git](https://git-scm.com/downloads), [Python 3.11+](https://www.python.org/downloads/), [Node 20+](https://nodejs.org) y [FFmpeg](https://ffmpeg.org/download.html). Si falta alguno, el instalador te lo dice y sigue con lo demás.
 
 **Windows** (PowerShell):
 
@@ -26,7 +26,9 @@ El instalador:
 
 - descarga cada skill de **su repositorio original** (siempre la última versión) y la deja en `~/.claude/skills/`;
 - **nunca borra nada**: si ya tenías una skill con el mismo nombre, la mueve a `~/.claude/skills-backup/<fecha>/`;
-- incluye `lemo-opuscar` como skill normal: no hace falta instalar ningún plugin aparte.
+- incluye `lemo-opuscar` como skill normal: no hace falta instalar ningún plugin aparte;
+- **instala también lo que las skills necesitan para funcionar**: la librería de estilos de opuscar y la de papercut, los paquetes de Python y Node, Whisper, PyTorch y los sonidos de ghost-editor (unos 5-6 GB, 10-20 minutos la primera vez);
+- deja para cuando los uses los modelos de voz (otros 4-6 GB).
 
 Para actualizar, vuelve a ejecutar el mismo comando.
 
@@ -41,7 +43,7 @@ Para actualizar, vuelve a ejecutar el mismo comando.
 | **Remotion (video en React)** | `remotion-best-practices`, `remotion-create`, `remotion-studio`, `remotion-render`, `remotion-captions`, `remotion-markup`, `remotion-maps`, `remotion-multimedia`, `remotion-interactivity`, `remotion-saas`, `remotion-docs`, `remotion-upgrade`, `remotion-license` |
 | **Planificar antes de crear** | `brand-intake`, `motion-brief-writer`, `motion-prompt-writer`, `reference-to-motion` |
 
-Algunas skills necesitan programas extra (FFmpeg, Python, Node). Cada una te lo pide la primera vez que la usas. Para papercut, di "set up papercut-explainer" dentro de Claude Code.
+papercut renderiza en Mac y Linux; en Windows el render final necesita WSL. Para añadir su voz local, di "set up papercut-explainer" dentro de Claude Code.
 
 ## Créditos
 
