@@ -209,7 +209,7 @@ footer { padding: 48px 0 60px; color: var(--muted); font-size: 14px; }
   <h1>Todo tu estudio<br>de <span>video</span>, en una skill.</h1>
   <p class="lede">Más de 40 skills para editar, recortar, subtitular y crear videos con código. Se instalan con un solo comando y se usan desde una sola puerta: <code>/video-studio</code> elige la herramienta adecuada por ti.</p>
   <div class="stats">
-    <div><b>41</b><span>skills + 1 plugin</span></div>
+    <div><b>42</b><span>skills de video</span></div>
     <div><b>7</b><span>autores open source</span></div>
     <div><b>1</b><span>comando para instalarlo todo</span></div>
   </div>
@@ -285,7 +285,7 @@ const SECTIONS = [
     { n: 'loop-cover', h: 'Portada en bucle', p: 'Tu portada de newsletter o blog como GIF en bucle perfecto, moviendo solo el elemento que elijas.', ask: 'Haz que el sol de mi portada gire en bucle', pv: css('loop') },
     { n: 'motion-effects', h: '16 efectos premium', p: 'Botón que se convierte en reproductor, gráfico que muta, logo de partículas, tipografía elástica… exportables a MP4.', ask: 'Construye el efecto botón → reproductor', pv: css('morph') },
     { n: 'model-showdown', h: 'Comparativa de 3 IAs', p: 'El mismo brief a tres modelos y sus resultados lado a lado en un video horizontal y otro vertical.', ask: 'Compara 3 modelos animando mi logo', pv: css('three') },
-    { n: 'lemo-opuscar', h: 'Cine en estilos artísticos', p: 'Cortos en óleo, acuarela, ukiyo-e, briefing por satélite, despiece de producto… o un estilo tuyo. (Es un plugin.)', ask: 'Un corto en acuarela sobre mi ciudad', pv: img(RAW('lemomo-ai/lemo-opuscar', 'docs/cover.jpg'), 'Portada de lemo-opuscar') },
+    { n: 'lemo-opuscar', h: 'Cine en estilos artísticos', p: 'Cortos en óleo, acuarela, ukiyo-e, briefing por satélite, despiece de producto… o un estilo tuyo.', ask: 'Un corto en acuarela sobre mi ciudad', pv: img(RAW('lemomo-ai/lemo-opuscar', 'docs/cover.jpg'), 'Portada de lemo-opuscar') },
     { n: 'OpenArt (conector)', h: 'Video generado con IA', p: 'De texto o imagen a video con modelos de IA. No es una skill: se conecta desde los conectores de Claude.', ask: 'Genera un clip de 5 s de una ola al atardecer', pv: css('ai') },
   ]},
   { t: 'Planificar antes de crear', d: 'Para que el resultado salga en tu marca y a la primera.', cards: [
@@ -308,7 +308,7 @@ const CREDITS = [
   ['kajisho5/ffmpeg-skill', 'kajisho5 · ffmpeg-skill', 'MIT'],
   ['kurbaitaev/ghost-editor', 'kurbaitaev · ghost-editor', 'MIT'],
   ['agricidaniel/claude-shorts', 'Daniel Agrici · claude-shorts', 'MIT'],
-  ['lemomo-ai/lemo-opuscar', 'Lemomo · plugin lemo-opuscar', 'MIT'],
+  ['lemomo-ai/lemo-opuscar', 'Lemomo · lemo-opuscar', 'MIT'],
 ];
 
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');

@@ -1,6 +1,6 @@
 # Video Studio
 
-**Todo tu estudio de video para Claude Code, en una skill.** 41 skills + 1 plugin para editar, recortar, subtitular y crear videos con código, instaladas con un solo comando y usadas desde una sola puerta: `/video-studio`.
+**Todo tu estudio de video para Claude Code, en una skill.** 42 skills para editar, recortar, subtitular y crear videos con código, instaladas con un solo comando y usadas desde una sola puerta: `/video-studio`.
 
 🌐 **Web con ejemplos visuales:** https://macc961112.github.io/video-studio/
 
@@ -26,7 +26,7 @@ El instalador:
 
 - descarga cada skill de **su repositorio original** (siempre la última versión) y la deja en `~/.claude/skills/`;
 - **nunca borra nada**: si ya tenías una skill con el mismo nombre, la mueve a `~/.claude/skills-backup/<fecha>/`;
-- instala el plugin `lemo-opuscar` si encuentra el comando `claude`; si no, te dice los dos comandos que tienes que escribir dentro de Claude Code.
+- incluye `lemo-opuscar` como skill normal: no hace falta instalar ningún plugin aparte.
 
 Para actualizar, vuelve a ejecutar el mismo comando.
 
@@ -36,7 +36,7 @@ Para actualizar, vuelve a ejecutar el mismo comando.
 |---|---|
 | **Elegir la herramienta por ti** | `video-studio` |
 | **Editar un video que ya tienes** | `ffmpeg-skill`, `ghost-editor`, `claude-shorts`, `reel-export` |
-| **Crear videos con código** | `launch-video`, `apple-launch-film`, `vox-explainer`, `title-sequence-3d`, `newsletter-promo`, `milestone-reveal`, `animated-chart`, `loop-cover`, `motion-effects`, `model-showdown`, `lemo-opuscar` (plugin) |
+| **Crear videos con código** | `launch-video`, `apple-launch-film`, `vox-explainer`, `title-sequence-3d`, `newsletter-promo`, `milestone-reveal`, `animated-chart`, `loop-cover`, `motion-effects`, `model-showdown`, `lemo-opuscar` |
 | **Explicadores de papel recortado** | `papercut-explainer`, `papercut-strategy`, `papercut-hook`, `papercut-script`, `papercut-storyboard`, `papercut-voice`, `papercut-build`, `papercut-qa`, `papercut-setup` |
 | **Remotion (video en React)** | `remotion-best-practices`, `remotion-create`, `remotion-studio`, `remotion-render`, `remotion-captions`, `remotion-markup`, `remotion-maps`, `remotion-multimedia`, `remotion-interactivity`, `remotion-saas`, `remotion-docs`, `remotion-upgrade`, `remotion-license` |
 | **Planificar antes de crear** | `brand-intake`, `motion-brief-writer`, `motion-prompt-writer`, `reference-to-motion` |

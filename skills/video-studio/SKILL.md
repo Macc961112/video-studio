@@ -38,7 +38,7 @@ This skill is a router. It does no video work itself: it picks the right install
 | Looping GIF from a cover or thumbnail | `loop-cover` |
 | One of the 16 motion effects (chart morph, particle logo, kinetic type...) | `motion-effects` |
 | Same brief to 3 AI models, side-by-side video | `model-showdown` |
-| Film in an artistic style (oil, watercolor, ukiyo-e, satellite, teardown) | `lemo-opuscar:lemo-opuscar` |
+| Film in an artistic style (oil, watercolor, ukiyo-e, satellite, teardown) | `lemo-opuscar` |
 | Generic Remotion video / anything else in React | `remotion-best-practices` (router for all `remotion-*` skills) |
 | AI-generated video clip (text/image to video) | OpenArt MCP tools (`openart_generate_video`), not a skill |
 
